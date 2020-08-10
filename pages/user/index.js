@@ -1,18 +1,33 @@
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
-const GoHome = dynamic(()=> import('../../components/goHome'),{ loading: () => <p>Loading...</p> });
+const GoHome = dynamic(() => import('components/goHome'), {
+  loading: () => <p>Loading...</p>,
+})
 
-const User = ({ users }) => {
-	return (
-		<div>
-			<h1>Users</h1>
-			<p>
-				{JSON.stringify(users,null, 4)}
-			</p>
-			<GoHome />
-		</div>
-	);
+const Users = ({ users = [] }) => {
+  return (
+    <div>
+      <h1>Users</h1>
+      {users.map(({ id, username }) => (
+        <div key={id}>
+          ID:{' '}
+          <Link href="/user/[id]" as={`/user/${id}`}>
+            <a>{id}</a>
+          </Link>
+          <p>Username: {username}</p>
+        </div>
+      ))}
+      <GoHome />
+      <style jsx>{`
+        div {
+          margin: 30px;
+          margin-bottom: 50px;
+        }
+      `}</style>
+    </div>
+  )
 }
 
 /* User.getInitialProps = async (ctx) => {
@@ -22,12 +37,15 @@ const User = ({ users }) => {
 }
  */
 
-export async function getServerSideProps() {
-	const res = await fetch('https://jsonplaceholder.typicode.com/users');
-	const users = await res.json();
-	return({props: {
-		users
-	}});
+/* export async function getServerSideProps() { */
+export async function getStaticProps() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users')
+  const users = await res.json()
+  return {
+    props: {
+      users,
+    },
+  }
 }
 
-export default User;
+export default Users

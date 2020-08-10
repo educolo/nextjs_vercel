@@ -1,0 +1,6 @@
+CONFIGURACION PRETTIER
+https://medium.com/@icruzr93/c%C3%B3mo-configurar-eslint-y-prettier-en-vscode-para-un-proyecto-en-react-5f6324e582a9
+
+PATH BASE
+https://nextjs.org/docs/advanced-features/module-path-aliases
+
