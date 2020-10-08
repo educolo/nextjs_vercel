@@ -9,7 +9,7 @@
     "prettier": "npx prettier --write ."
   },
   "dependencies": {
-    "next": "^9.3.3",
+    "next": "^9.5.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "sass": "^1.26.10"
